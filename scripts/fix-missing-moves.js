@@ -1,6 +1,12 @@
 const { MongoClient } = require('mongodb');
 
-// Correzioni manuali per le mosse non trovate
+require('dotenv').config();
+const { MongoClient } = require('mongodb');
+
+// Configurazione MongoDB
+const MONGO_URI = process.env.MONGODB_URI || 'mongodb://admin:pokemon123@localhost:27017/pokemon_db?authSource=admin';
+
+// Pokemon con mosse mancanti che devono essere aggiornate
 const moveCorrections = {
   'Libbra': {
     english: 'pound',
@@ -36,9 +42,7 @@ const pokemonToFix = [
 ];
 
 async function fixMissingMoves() {
-  const client = new MongoClient('mongodb://admin:pokemon123@localhost:27017', {
-    authSource: 'admin'
-  });
+  const client = new MongoClient(MONGO_URI);
 
   try {
     await client.connect();

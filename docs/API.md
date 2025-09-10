@@ -1,11 +1,25 @@
 # 📡 API Documentation
 
-## Base URL
+Documentazione completa delle API REST per Pokemon Master Trainer.
+
+## 🚀 Setup Veloce
+
+Assicurati che l'applicazione sia in esecuzione:
+```bash
+./manage.sh start
+```
+
+## 🌐 Base URL
 ```
 http://localhost:3000/api
 ```
 
-## Endpoints
+## 📊 Database
+- **MongoDB Atlas** (cloud database)
+- **151 Pokemon** della prima generazione
+- **Dati Master Trainer** accurati con HP e mosse italiane
+
+## 📋 Endpoints Disponibili
 
 ### 🔍 Health Check
 **GET** `/health`
@@ -229,7 +243,7 @@ curl -X POST -H "Content-Type: application/json" \
 }
 ```
 
-## Test Rapidi
+## 🧪 Test Rapidi
 
 ```bash
 # Test connessione
@@ -244,3 +258,17 @@ curl http://localhost:3000/api/pokemon/150  # Mewtwo
 curl -X POST -H "Content-Type: application/json" -d '{"pokemonX_id": 25, "pokemonY_id": 28}' http://localhost:3000/api/compare  # Electric vs Ground (immunità)
 curl -X POST -H "Content-Type: application/json" -d '{"pokemonX_id": 6, "pokemonY_id": 1}' http://localhost:3000/api/compare   # Fire vs Grass (super efficace)
 ```
+
+## 🔧 Note Tecniche
+
+- **Rate Limiting**: Non implementato (ambiente di sviluppo)
+- **Autenticazione**: Non richiesta
+- **CORS**: Abilitato per tutti i domini
+- **Formato**: JSON esclusivamente
+- **Codifica**: UTF-8
+
+## 📚 Risorse Correlate
+
+- **[Setup Applicazione](SETUP.md)** - Configurazione e avvio
+- **[Schema Database](pokemon-schema.md)** - Struttura dati Pokemon
+- **[Repository GitHub](https://github.com/albertotessarotto94/Pokemon-frontend)** - Codice sorgente

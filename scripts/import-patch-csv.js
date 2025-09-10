@@ -1,9 +1,10 @@
+require('dotenv').config();
 const { MongoClient } = require('mongodb');
 const fs = require('fs');
 const path = require('path');
 
 // Configurazione MongoDB
-const MONGO_URI = 'mongodb://admin:pokemon123@localhost:27017/pokemon_db?authSource=admin';
+const MONGO_URI = process.env.MONGODB_URI || 'mongodb://admin:pokemon123@localhost:27017/pokemon_db?authSource=admin';
 const DB_NAME = 'pokemon_db';
 const COLLECTION_NAME = 'pokemon';
 
