@@ -1,0 +1,147 @@
+{
+  "$jsonSchema": {
+    "bsonType": "object",
+    "title": "Pokemon Collection Schema Validator - Versione Ibrida",
+    "description": "Schema di validazione bilanciato per la collezione Pokemon",
+    "required": [
+      "name",
+      "name_it", 
+      "pokedex_number",
+      "hp",
+      "pokemon_types",
+      "move",
+      "generation",
+      "created_at",
+      "updated_at"
+    ],
+    "additionalProperties": false,
+    "properties": {
+      "_id": {
+        "bsonType": "objectId",
+        "description": "ID univoco del documento (opzionale, MongoDB lo crea)"
+      },
+      "name": {
+        "bsonType": "string",
+        "minLength": 2,
+        "maxLength": 30,
+        "description": "Nome del Pokemon in inglese (flessibile per caratteri speciali)"
+      },
+      "name_it": {
+        "bsonType": "string",
+        "minLength": 2,
+        "maxLength": 30,
+        "description": "Nome del Pokemon in italiano"
+      },
+      "pokedex_number": {
+        "bsonType": "int",
+        "minimum": 1,
+        "maximum": 151,
+        "description": "Numero Pokedex della prima generazione (1-151)"
+      },
+      "hp": {
+        "bsonType": "int",
+        "minimum": 1,
+        "maximum": 255,
+        "description": "Punti Salute del Pokemon (1-255)"
+      },
+      "pokemon_types": {
+        "bsonType": "array",
+        "minItems": 1,
+        "maxItems": 2,
+        "uniqueItems": true,
+        "description": "Tipi del Pokemon (1 o 2 tipi)",
+        "items": {
+          "bsonType": "string",
+          "enum": [
+            "normal",
+            "fire", 
+            "water",
+            "electric",
+            "grass",
+            "ice",
+            "fighting",
+            "poison",
+            "ground",
+            "flying",
+            "psychic",
+            "bug",
+            "rock",
+            "ghost",
+            "dragon",
+            "dark",
+            "steel",
+            "fairy"
+          ]
+        }
+      },
+      "move": {
+        "bsonType": "object",
+        "required": ["name", "name_it", "power", "move_types"],
+        "additionalProperties": false,
+        "description": "Mossa principale del Pokemon",
+        "properties": {
+          "name": {
+            "bsonType": "string",
+            "minLength": 2,
+            "maxLength": 30,
+            "description": "Nome della mossa in inglese (flessibile)"
+          },
+          "name_it": {
+            "bsonType": "string",
+            "minLength": 2,
+            "maxLength": 30,
+            "description": "Nome della mossa in italiano"
+          },
+          "power": {
+            "bsonType": "int",
+            "minimum": 0,
+            "maximum": 250,
+            "description": "Potenza della mossa (0 per mosse di stato)"
+          },
+          "move_types": {
+            "bsonType": "array",
+            "minItems": 1,
+            "maxItems": 1,
+            "description": "Tipo della mossa (sempre 1 elemento)",
+            "items": {
+              "bsonType": "string",
+              "enum": [
+                "normal",
+                "fire",
+                "water", 
+                "electric",
+                "grass",
+                "ice",
+                "fighting",
+                "poison",
+                "ground",
+                "flying",
+                "psychic",
+                "bug",
+                "rock",
+                "ghost",
+                "dragon",
+                "dark",
+                "steel",
+                "fairy"
+              ]
+            }
+          }
+        }
+      },
+      "generation": {
+        "bsonType": "int",
+        "enum": [1],
+        "description": "Generazione Pokemon (solo prima generazione)"
+      },
+      "created_at": {
+        "bsonType": "date",
+        "description": "Data di creazione del documento"
+      },
+      "updated_at": {
+        "bsonType": "date",
+        "description": "Data ultimo aggiornamento del documento"
+      }
+    }
+  }
+}

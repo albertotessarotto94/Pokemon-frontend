@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Comparison - Master Trainer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎮 Pokemon Comparison</h1>
+            <p>Confronta Pokemon basato sui dati di Master Trainer</p>
+        </header>
+
+        <!-- Area di selezione Pokemon -->
+        <div class="selection-area">
+            <div class="pokemon-selector">
+                <h3>Pokemon X</h3>
+                <div class="search-container">
+                    <input 
+                        type="text" 
+                        id="pokemonXSearch" 
+                        class="pokemon-search" 
+                        placeholder="Cerca o seleziona Pokemon X..."
+                        autocomplete="off"
+                    >
+                    <div class="search-dropdown" id="pokemonXDropdown">
+                        <div class="dropdown-option default-option" data-value="">
+                            Seleziona Pokemon X...
+                        </div>
+                    </div>
+                    <div class="search-error" id="pokemonXError"></div>
+                </div>
+            </div>
+            
+            <div class="vs-divider">
+                <span>VS</span>
+            </div>
+            
+            <div class="pokemon-selector">
+                <h3>Pokemon Y</h3>
+                <div class="search-container">
+                    <input 
+                        type="text" 
+                        id="pokemonYSearch" 
+                        class="pokemon-search" 
+                        placeholder="Cerca o seleziona Pokemon Y..."
+                        autocomplete="off"
+                    >
+                    <div class="search-dropdown" id="pokemonYDropdown">
+                        <div class="dropdown-option default-option" data-value="">
+                            Seleziona Pokemon Y...
+                        </div>
+                    </div>
+                    <div class="search-error" id="pokemonYError"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Area informazioni Pokemon -->
+        <div class="pokemon-info-area" id="pokemonInfoArea">
+            <div class="pokemon-card" id="pokemonXCard">
+                <h3>Pokemon X</h3>
+                <div class="pokemon-details">
+                    <div class="pokemon-name">
+                        <span class="pokedex-number"></span>
+                        <span class="name-it"></span>
+                    </div>
+                    <div class="pokemon-types"></div>
+                    <div class="pokemon-hp">HP: <span></span></div>
+                    <div class="pokemon-move">
+                        <div class="move-name">Mossa: <span></span></div>
+                        <div class="move-types">Tipo mossa: <span></span></div>
+                        <div class="move-power">Potenza: <span></span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pokemon-card" id="pokemonYCard">
+                <h3>Pokemon Y</h3>
+                <div class="pokemon-details">
+                    <div class="pokemon-name">
+                        <span class="pokedex-number"></span>
+                        <span class="name-it"></span>
+                    </div>
+                    <div class="pokemon-types"></div>
+                    <div class="pokemon-hp">HP: <span></span></div>
+                    <div class="pokemon-move">
+                        <div class="move-name">Mossa: <span></span></div>
+                        <div class="move-types">Tipo mossa: <span></span></div>
+                        <div class="move-power">Potenza: <span></span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Area confronto -->
+        <div class="comparison-area" id="comparisonArea">
+            <h2>🔥 Pokemon Comparison</h2>
+            
+            <div class="battle-scenarios">
+                <div class="scenario" id="scenarioXAttacksY">
+                    <h3><span class="attacker-name"></span> <span class="attacking-label">ATTACKING</span></h3>
+                    <div class="scenario-details">
+                        <div class="attack-info">
+                            <span class="move-description"></span>
+                        </div>
+                        <div class="damage-calculation">
+                            <div class="base-power">Potenza base: <span></span></div>
+                            <div class="multiplier">Moltiplicatore: <span></span>x</div>
+                            <div class="final-damage">Danno finale: <span></span></div>
+                            <div class="effectiveness-badge"><span></span></div>
+                        </div>
+                        <div class="explanation">
+                            <p class="description-text"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scenario" id="scenarioYAttacksX">
+                    <h3><span class="attacker-name"></span> <span class="attacking-label">ATTACKING</span></h3>
+                    <div class="scenario-details">
+                        <div class="attack-info">
+                            <span class="move-description"></span>
+                        </div>
+                        <div class="damage-calculation">
+                            <div class="base-power">Potenza base: <span></span></div>
+                            <div class="multiplier">Moltiplicatore: <span></span>x</div>
+                            <div class="final-damage">Danno finale: <span></span></div>
+                            <div class="effectiveness-badge"><span></span></div>
+                        </div>
+                        <div class="explanation">
+                            <p class="description-text"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading indicator -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Caricamento...</p>
+        </div>
+
+        <!-- Error message -->
+        <div class="error-message" id="errorMessage">
+            <p></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
