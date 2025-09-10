@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const { MongoClient } = require('mongodb');
@@ -12,7 +13,7 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // Configurazione MongoDB
-const MONGO_URI = 'mongodb://admin:pokemon123@localhost:27017';
+const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://albertotessarotto94:<db_password>@clustertest.uhcnpa0.mongodb.net/pokemon_db';
 const DB_NAME = 'pokemon_db';
 const COLLECTION_NAME = 'pokemon';
 
@@ -21,7 +22,7 @@ let db;
 // Connessione MongoDB
 async function connectToDatabase() {
   try {
-    const client = new MongoClient(MONGO_URI, { authSource: 'admin' });
+    const client = new MongoClient(MONGO_URI);
     await client.connect();
     db = client.db(DB_NAME);
     console.log('✅ Connesso a MongoDB');

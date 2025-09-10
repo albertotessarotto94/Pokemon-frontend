@@ -6,15 +6,10 @@
 case "$1" in
   start)
     echo "🚀 Avvio Pokemon Master Trainer..."
-    echo "📊 Avvio servizi Docker..."
-    docker-compose up -d
-    
-    echo "⏳ Attendo avvio MongoDB..."
-    sleep 5
+    echo "☁️  Connessione a MongoDB Atlas..."
     
     echo "🔥 Avvio server Node.js..."
     echo "📱 Applicazione disponibile su: http://localhost:3000"
-    echo "🍃 Mongo Express disponibile su: http://localhost:8081"
     echo ""
     echo "Per fermare l'applicazione: ./manage.sh stop"
     echo ""
@@ -25,9 +20,6 @@ case "$1" in
     echo "🛑 Arresto Pokemon Master Trainer..."
     echo "🔥 Arresto server Node.js..."
     pkill -f "node server.js"
-    
-    echo "📊 Arresto servizi Docker..."
-    docker-compose down
     echo "✅ Applicazione arrestata completamente"
     ;;
     
@@ -41,50 +33,57 @@ case "$1" in
   status)
     echo "📊 Stato Pokemon Master Trainer:"
     echo ""
-    echo "Docker Containers:"
-    docker-compose ps
-    echo ""
     echo "Server Status:"
     curl -s http://localhost:3000/api/health | jq . 2>/dev/null || echo "❌ Server non raggiungibile"
     ;;
     
   logs)
-    echo "📝 Log dei servizi:"
-    docker-compose logs -f
+    echo "📝 Log del server Node.js:"
+    echo "ℹ️  I log vengono mostrati direttamente nel terminale quando avvii con './manage.sh start'"
     ;;
     
-  reset)
-    echo "⚠️  RESET COMPLETO - Questo cancellerà tutti i dati!"
-    read -p "Sei sicuro? (y/N): " -n 1 -r
-    echo
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-      echo "🗑️  Reset in corso..."
-      docker-compose down -v
-      echo "🚀 Riavvio servizi..."
-      docker-compose up -d
-      echo "✅ Reset completato"
-    else
-      echo "❌ Reset annullato"
-    fi
+  test-connection)
+    echo "🔍 Test connessione MongoDB Atlas..."
+    node -e "
+    require('dotenv').config();
+    const { MongoClient } = require('mongodb');
+    
+    async function testConnection() {
+      try {
+        const client = new MongoClient(process.env.MONGODB_URI);
+        await client.connect();
+        console.log('✅ Connessione ad Atlas riuscita!');
+        const db = client.db('pokemon_db');
+        const count = await db.collection('pokemon').countDocuments();
+        console.log(\`📊 Trovati \${count} Pokemon nel database\`);
+        await client.close();
+      } catch (error) {
+        console.error('❌ Errore connessione:', error.message);
+      }
+    }
+    
+    testConnection();
+    "
     ;;
     
   *)
     echo "🔥 Pokemon Master Trainer - Script di Gestione"
     echo ""
-    echo "Utilizzo: $0 {start|stop|restart|status|logs|reset}"
+    echo "Utilizzo: $0 {start|stop|restart|status|logs|test-connection}"
     echo ""
     echo "Comandi disponibili:"
-    echo "  start    - Avvia l'applicazione completa"
-    echo "  stop     - Ferma l'applicazione completamente"
-    echo "  restart  - Riavvia l'applicazione"
-    echo "  status   - Mostra lo stato dei servizi"
-    echo "  logs     - Mostra i log in tempo reale"
-    echo "  reset    - Reset completo (⚠️  cancella i dati)"
+    echo "  start           - Avvia l'applicazione"
+    echo "  stop            - Ferma l'applicazione"
+    echo "  restart         - Riavvia l'applicazione"
+    echo "  status          - Mostra lo stato del server"
+    echo "  logs            - Info sui log del server"
+    echo "  test-connection - Testa la connessione a MongoDB Atlas"
     echo ""
     echo "Link veloci dopo l'avvio:"
     echo "  🌐 App: http://localhost:3000"
-    echo "  🍃 MongoDB: http://localhost:8081"
     echo "  🔧 API Health: http://localhost:3000/api/health"
+    echo ""
+    echo "💡 Database: MongoDB Atlas (cloud)"
     exit 1
     ;;
 esac
