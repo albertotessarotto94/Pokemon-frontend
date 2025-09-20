@@ -7,6 +7,11 @@ const API_CONFIG = {
             return 'http://localhost:3000';
         }
         
+        // Se siamo su Vercel (stesso dominio), usa percorsi relativi
+        if (window.location.hostname.includes('vercel.app')) {
+            return '';
+        }
+        
         // Se siamo su GitHub Pages, usa l'API su Vercel
         return 'https://pokemon-frontend-git-main-albertos-projects-093a24bc.vercel.app';
     },
