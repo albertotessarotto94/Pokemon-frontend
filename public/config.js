@@ -8,8 +8,7 @@ const API_CONFIG = {
         }
         
         // Se siamo su GitHub Pages, usa l'API su Vercel
-        // SOSTITUISCI questo URL con il tuo URL Vercel dopo il deploy
-        return 'https://your-pokemon-api.vercel.app';
+        return 'https://pokemon-frontend-git-main-albertos-projects-093a24bc.vercel.app';
     },
     
     // Helper per costruire URL completi
