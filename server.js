@@ -18,23 +18,31 @@ const DB_NAME = 'pokemon_db';
 const COLLECTION_NAME = 'pokemon';
 
 let db;
+let isConnected = false;
 
 // Connessione MongoDB
 async function connectToDatabase() {
+  if (isConnected && db) {
+    return db;
+  }
+  
   try {
     const client = new MongoClient(MONGO_URI);
     await client.connect();
     db = client.db(DB_NAME);
+    isConnected = true;
     console.log('✅ Connesso a MongoDB');
+    return db;
   } catch (error) {
     console.error('❌ Errore connessione MongoDB:', error);
-    process.exit(1);
+    throw error;
   }
 }
 
 // Endpoint per ottenere tutti i Pokemon per le select
 app.get('/api/pokemon', async (req, res) => {
   try {
+    await connectToDatabase();
     const pokemon = await db.collection(COLLECTION_NAME)
       .find({})
       .sort({ pokedex_number: 1 })
@@ -67,6 +75,7 @@ app.get('/api/pokemon', async (req, res) => {
 // Endpoint per ottenere un singolo Pokemon per ID
 app.get('/api/pokemon/:id', async (req, res) => {
   try {
+    await connectToDatabase();
     const pokemonId = parseInt(req.params.id);
     
     if (isNaN(pokemonId) || pokemonId < 1 || pokemonId > 151) {
@@ -102,6 +111,7 @@ app.get('/api/pokemon/:id', async (req, res) => {
 // Endpoint per confronto tra due Pokemon
 app.post('/api/compare', async (req, res) => {
   try {
+    await connectToDatabase();
     const { pokemonX_id, pokemonY_id } = req.body;
 
     // Validazione input
@@ -270,9 +280,6 @@ async function startServer() {
     });
   }
 }
-
-// Inizializza la connessione al database
-connectToDatabase().catch(console.error);
 
 // Esporta l'app per Vercel
 module.exports = app;
