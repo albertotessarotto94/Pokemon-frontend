@@ -9,12 +9,9 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors({
-  origin: [
-    'http://localhost:3000',
-    'https://albertotessarotto94.github.io',
-    'https://pokemon-frontend-git-main-albertos-projects-093a24bc.vercel.app'
-  ],
-  credentials: true
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
 app.use(express.static('public'));
