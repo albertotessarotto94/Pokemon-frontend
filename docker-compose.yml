@@ -1,8 +1,0 @@
-services:
-  app:
-    build: .
-    ports:
-      - "3000:3000"
-    environment:
-      - MONGODB_URI=mongodb+srv://albertotessarotto94:<db_password>@clustertest.uhcnpa0.mongodb.net/pokemon_db
-    restart: unless-stopped
