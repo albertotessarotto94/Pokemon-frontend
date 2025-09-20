@@ -12,7 +12,15 @@
       "dest": "/server.js"
     },
     {
-      "src": "/(.*)",
+      "src": "/api/health",
+      "dest": "/server.js"
+    },
+    {
+      "src": "/api/pokemon",
+      "dest": "/server.js"
+    },
+    {
+      "src": "/api/compare",
       "dest": "/server.js"
     }
   ]
