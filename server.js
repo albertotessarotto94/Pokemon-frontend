@@ -261,11 +261,23 @@ app.use('*', (req, res) => {
 async function startServer() {
   await connectToDatabase();
   
-  app.listen(PORT, () => {
-    console.log(`🚀 Server avviato su porta ${PORT}`);
-    console.log(`📊 API disponibile su http://localhost:${PORT}/api`);
-    console.log(`🌐 Frontend disponibile su http://localhost:${PORT}`);
-  });
+  // Solo se non siamo su Vercel, avvia il server
+  if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+    app.listen(PORT, () => {
+      console.log(`🚀 Server avviato su porta ${PORT}`);
+      console.log(`📊 API disponibile su http://localhost:${PORT}/api`);
+      console.log(`🌐 Frontend disponibile su http://localhost:${PORT}`);
+    });
+  }
 }
 
-startServer().catch(console.error);
+// Inizializza la connessione al database
+connectToDatabase().catch(console.error);
+
+// Esporta l'app per Vercel
+module.exports = app;
+
+// Avvia il server solo se non siamo su Vercel
+if (require.main === module) {
+  startServer().catch(console.error);
+}

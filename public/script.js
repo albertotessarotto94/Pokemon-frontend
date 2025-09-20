@@ -334,7 +334,7 @@ class PokemonComparison {
         try {
             this.showLoading();
             
-            const response = await fetch('/api/pokemon');
+            const response = await fetch(window.API_CONFIG.getApiUrl('/api/pokemon'));
             const result = await response.json();
 
             if (!result.success) {
@@ -426,7 +426,7 @@ class PokemonComparison {
         try {
             this.showLoading();
 
-            const response = await fetch('/api/compare', {
+            const response = await fetch(window.API_CONFIG.getApiUrl('/api/compare'), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
