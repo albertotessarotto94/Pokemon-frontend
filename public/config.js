@@ -13,7 +13,7 @@ const API_CONFIG = {
         }
         
         // Se siamo su GitHub Pages, usa l'API su Vercel
-        return 'https://pokemon-frontend-kohl.vercel.app';
+        return 'https://pokemon-frontend-albertos-projects.vercel.app';
     },
     
     // Helper per costruire URL completi
